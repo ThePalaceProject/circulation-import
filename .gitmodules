@@ -1,0 +1,6 @@
+[submodule "collection"]
+	path = collection
+	url = https://github.com/vbessonov/circulation-lcp-collection.git
+[submodule "circulation-lcp-test"]
+	path = circulation-lcp-test
+	url = https://github.com/vbessonov/circulation-lcp-test.git

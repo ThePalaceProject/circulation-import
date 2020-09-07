@@ -1,0 +1,17 @@
+[FORMAT]
+max-line-length=120
+
+[MESSAGES CONTROL]
+disable=
+    # We consider readability as more important than logging performance
+    # See https://docs.python.org/3/howto/logging.html#optimization for details
+    logging-fstring-interpolation,
+    # This check acts strange on mm
+    import-error,
+    missing-docstring
+
+[BASIC]
+# Profit-loss
+good-names=pl,
+    i, fn,
+

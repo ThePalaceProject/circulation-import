@@ -1,0 +1,14 @@
+.mypy_cache
+.venv
+circulation-lcp-test
+collection
+dist
+docs
+reports
+storage
+tests
+upload
+.bumpversion.cfg
+.gitignore
+.gitmodules
+docker-compose.*

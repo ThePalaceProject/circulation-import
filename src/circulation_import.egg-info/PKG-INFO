@@ -1,0 +1,11 @@
+Metadata-Version: 1.2
+Name: circulation-import
+Version: 0.1.0
+Summary: Application automating the import into Circulation Manager
+Home-page: UNKNOWN
+Author: Viacheslav Bessonov
+Author-email: viacheslav.bessonov@hilbertteam.com
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.7,<4.0

@@ -1,0 +1,46 @@
+version: "3.6"
+
+services:
+  circulation-import-server:
+    image: circulation-import:latest
+    depends_on:
+      - postgres
+      - es
+      - cm
+    environment:
+      SIMPLIFIED_PRODUCTION_DATABASE: postgres://${CM_DATABASE_USERNAME}:${CM_DATABASE_PASSWORD}@${CM_DATABASE_HOST}:${CM_DATABASE_PORT}/${CM_DATABASE_DATABASE}
+    volumes:
+      - type: bind
+        source: ../configuration
+        target: /circulation-import/configuration
+      - type: bind
+        source: ../reports
+        target: /circulation-import/reports
+      - type: bind
+        source: ../storage
+        target: /circulation-import/storage
+      - type: bind
+        source: ../upload
+        target: /circulation-import/upload
+      - type: volume
+        source: intermediate-repository
+        target: /${CM_REPOSITORY}
+    command: [
+      "server", "monitor",
+      "--configuration-file", "/circulation-import/configuration/server-configuration.docker.yml",
+      "--logging-configuration-file", "/circulation-import/configuration/logging.yml"
+    ]
+    networks:
+      - back
+
+  sftp:
+    image: atmoz/sftp:alpine
+    ports:
+      - "2222:22"
+    command: ["publisher:secretpassword:${CURRENT_USER_UID}:${CURRENT_USER_GID}:upload"]
+    volumes:
+      - type: bind
+        source: ../upload
+        target: /home/publisher/upload
+    networks:
+      - back

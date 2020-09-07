@@ -1,0 +1,14 @@
+!ClientConfiguration
+hashing_algorithm: SHA-1
+
+database_configuration: !DatabaseConfiguration
+  driver: sqlite
+  database: client
+  echo: true
+
+sftp_configuration: !SFTPConfiguration
+  host: 127.0.0.1
+  port: 2222
+  username: publisher
+  password: secretpassword
+  upload_directory: upload

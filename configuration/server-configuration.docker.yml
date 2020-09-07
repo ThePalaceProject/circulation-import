@@ -1,0 +1,14 @@
+!ServerConfiguration
+hashing_algorithm: SHA-1
+upload_directory: /circulation-import/upload
+
+database_configuration: !DatabaseConfiguration
+  driver: sqlite
+  database: /circulation-import/storage/server.db
+  echo: true
+
+importer_configuration: !ImporterConfiguration
+  import_script_command: source /var/www/circulation/env/bin/activate && /var/www/circulation/bin/directory_import
+  collection_name: LCP
+  collection_type: LCP
+  data_source_name: data_source_1
