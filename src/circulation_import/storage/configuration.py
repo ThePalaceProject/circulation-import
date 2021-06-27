@@ -10,7 +10,7 @@ from circulation_import.configuration import yaml
 
 
 class DatabaseDriver(Enum):
-    SQLITE = 'sqlite'
+    SQLITE = "sqlite"
 
 
 @dataclass(kw_only=True)
@@ -23,7 +23,7 @@ class DatabaseConfiguration(Configuration):
     password: Optional[str] = None
     database: str
     echo: bool = False
-    isolation_level: str = 'READ UNCOMMITTED'
+    isolation_level: str = "READ UNCOMMITTED"
     pool_class = QueuePool
     pool_recycle: int = 3600
     pool_pre_ping: bool = True
@@ -31,6 +31,6 @@ class DatabaseConfiguration(Configuration):
     @property
     def connection_string(self) -> str:
         if self.driver == DatabaseDriver.SQLITE.value:
-            return f'{self.driver}:///{self.database}'
+            return f"{self.driver}:///{self.database}"
         else:
-            return f'{self.driver}://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}'
+            return f"{self.driver}://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}"

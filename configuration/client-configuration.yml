@@ -3,7 +3,7 @@ hashing_algorithm: SHA-1
 
 database_configuration: !DatabaseConfiguration
   driver: sqlite
-  database: client
+  database: ../../storage/client.db
   echo: true
 
 sftp_configuration: !SFTPConfiguration

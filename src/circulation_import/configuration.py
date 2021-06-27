@@ -35,8 +35,8 @@ class Configuration:
                 klass = type(member)
                 arguments = member.__dict__
 
-                if '__len__' in arguments:
-                    del arguments['__len__']
+                if "__len__" in arguments:
+                    del arguments["__len__"]
 
                 fixed_instance = klass(**arguments)  # type: ignore
 
@@ -45,11 +45,11 @@ class Configuration:
                 Configuration._restore_missing_default_properties(member)
 
     @classmethod
-    def load(cls, filename: str = 'config.yml') -> Configuration:
+    def load(cls, filename: str = "config.yml") -> Configuration:
         current_workdir = os.path.join(os.getcwd())
         filename = os.path.join(current_workdir, filename)
         try:
-            with open(filename, 'r') as file:
+            with open(filename, "r") as file:
                 # NOTE: This magic is essential for new instance to be properly decorated
                 config = cls(**yaml.load(file.read()).__dict__)  # type: ignore
 
@@ -63,7 +63,7 @@ class Configuration:
     def save(self, file: Union[str, BinaryIO]) -> None:
 
         if isinstance(file, str):
-            with open(file, 'w') as file:  # type: ignore
+            with open(file, "w") as file:  # type: ignore
                 yaml.dump(self, file)
         else:
             yaml.dump(self, file)
@@ -75,15 +75,17 @@ class LoggingConfiguration:
     handlers: Dict[str, Dict]
 
     @classmethod
-    def load(cls, filename: str = 'logging-config.yml') -> LoggingConfiguration:
+    def load(cls, filename: str = "logging-config.yml") -> LoggingConfiguration:
         current_workdir = os.path.join(os.getcwd())
         filename = os.path.join(current_workdir, filename)
         try:
-            with open(filename, 'r') as file:
+            with open(filename, "r") as file:
                 config = yaml.load(file.read())
                 return config
         except (FileNotFoundError, IsADirectoryError):
-            raise ConfigurationError(f'Logging config file "{filename}" not found, exiting!')
+            raise ConfigurationError(
+                f'Logging config file "{filename}" not found, exiting!'
+            )
 
     def apply(self):
         logging.config.dictConfig(self.__dict__)

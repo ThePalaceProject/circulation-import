@@ -36,12 +36,12 @@ class CollectionImportMetadata(Configuration):
 
 
 class Directory(Enum):
-    BOOKS_DIRECTORY = 'books'
-    COVERS_DIRECTORY = 'covers'
-    REPORTS_DIRECTORY = 'reports'
+    BOOKS_DIRECTORY = "books"
+    COVERS_DIRECTORY = "covers"
+    REPORTS_DIRECTORY = "reports"
 
 
 class MetadataFile(Enum):
-    COLLECTION_METADATA_FILE = 'metadata.xml'
-    IMPORT_METADATA_FILE = 'import-metadata.yml'
-    REPORT_FILE = 'report.yml'
+    COLLECTION_METADATA_FILE = "metadata.xml"
+    IMPORT_METADATA_FILE = "import-metadata.yml"
+    REPORT_FILE = "report.yml"

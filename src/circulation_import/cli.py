@@ -10,17 +10,19 @@ from circulation_import.server.cli import server
 
 
 def excepthook(
-        exception_type: Type[BaseException],
-        exception_instance: BaseException,
-        exception_traceback: TracebackType) -> None:
+    exception_type: Type[BaseException],
+    exception_instance: BaseException,
+    exception_traceback: TracebackType,
+) -> None:
     """Function called for uncaught exceptions
     :param exception_type: Type of an exception
     :param exception_instance: Exception instance
     :param exception_traceback: Exception traceback
     """
     logging.fatal(
-        f'Exception hook has been fired: {exception_instance}',
-        exc_info=(exception_type, exception_instance, exception_traceback))
+        f"Exception hook has been fired: {exception_instance}",
+        exc_info=(exception_type, exception_instance, exception_traceback),
+    )
 
 
 sys.excepthook = excepthook

@@ -1,5 +1,4 @@
-#FROM nypl/circ-exec:development
-FROM viacheslavbessonov/circ-exec:lcp
+FROM ghcr.io/thepalaceproject/circ-exec:main
 
 # Need to be passed for using private PyPI repo
 ARG PYPI_URL

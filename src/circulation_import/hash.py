@@ -7,8 +7,8 @@ from circulation_import.errors import BaseError
 
 
 class HashingAlgorithm(Enum):
-    MD5 = 'MD5'
-    SHA1 = 'SHA-1'
+    MD5 = "MD5"
+    SHA1 = "SHA-1"
 
 
 class HashingError(BaseError):
@@ -33,12 +33,20 @@ class Hasher(ABC):
 
 class UniversalHasher(Hasher):
     def hash(self, value):
-        if self._hashing_algorithm in [HashingAlgorithm.MD5, HashingAlgorithm.MD5.value]:
+        if self._hashing_algorithm in [
+            HashingAlgorithm.MD5,
+            HashingAlgorithm.MD5.value,
+        ]:
             return hashlib.md5(value).hexdigest()
-        elif self._hashing_algorithm in [HashingAlgorithm.SHA1, HashingAlgorithm.SHA1.value]:
+        elif self._hashing_algorithm in [
+            HashingAlgorithm.SHA1,
+            HashingAlgorithm.SHA1.value,
+        ]:
             return hashlib.sha1(value).hexdigest()
         else:
-            raise HashingError('Unknown hashing algorithm {0}'.format(self._hashing_algorithm))
+            raise HashingError(
+                "Unknown hashing algorithm {0}".format(self._hashing_algorithm)
+            )
 
 
 class HasherFactory(object):

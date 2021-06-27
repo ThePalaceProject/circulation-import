@@ -53,7 +53,8 @@ class DbStorage(sqlalchemy.orm.Session):
             extension,
             enable_baked_queries,
             info,
-            query_cls)
+            query_cls,
+        )
 
     def commit(self) -> None:
         original_commit = super().commit
@@ -62,23 +63,19 @@ class DbStorage(sqlalchemy.orm.Session):
     @staticmethod
     def retry(
         callback: Callable,
-            fail_callback: Callable[[Exception], None] = None,
-            retries: int = 50,
-            delay: datetime.timedelta = datetime.timedelta(seconds=3)) -> Any:
-        success, result = utils.retry(
-            retries,
-            delay,
-            callback,
-            fail_callback
-        )
+        fail_callback: Callable[[Exception], None] = None,
+        retries: int = 50,
+        delay: datetime.timedelta = datetime.timedelta(seconds=3),
+    ) -> Any:
+        success, result = utils.retry(retries, delay, callback, fail_callback)
 
         if not success:
-            utils.fail('Could not execute a callback')
+            utils.fail("Could not execute a callback")
 
         return result
 
 
-TStorage = TypeVar('TStorage', bound=DbStorage)
+TStorage = TypeVar("TStorage", bound=DbStorage)
 
 
 class DbFactory(Generic[TStorage]):
@@ -88,7 +85,9 @@ class DbFactory(Generic[TStorage]):
         self._engine: Optional[Engine] = None
 
     def _create_engine(self) -> Engine:
-        self._logger.info(f'Started creating a new engine using the following settings: {self._config}')
+        self._logger.info(
+            f"Started creating a new engine using the following settings: {self._config}"
+        )
 
         connection_string = self._config.connection_string
         engine = create_engine(
@@ -98,7 +97,7 @@ class DbFactory(Generic[TStorage]):
             poolclass=self._config.pool_class,
             pool_recycle=self._config.pool_recycle,
             pool_pre_ping=self._config.pool_pre_ping,
-            connect_args={'check_same_thread': False}
+            connect_args={"check_same_thread": False},
         )
 
         if self._config.driver == DatabaseDriver.SQLITE.value:
@@ -106,7 +105,7 @@ class DbFactory(Generic[TStorage]):
 
         Base.metadata.create_all(engine)
 
-        self._logger.info('New engine has been successfully created')
+        self._logger.info("New engine has been successfully created")
 
         return engine
 
@@ -133,26 +132,28 @@ class DbSessionFactory(DbFactory[TStorage]):
 
     @contextmanager
     def create(self) -> TStorage:
-        self._logger.info('Started creating a new session')
+        self._logger.info("Started creating a new session")
 
         session = self._create_session()
 
-        self._logger.info('New session has been successfully created')
+        self._logger.info("New session has been successfully created")
 
         try:
             yield session
 
-            self._logger.info('New session has been successfully used')
+            self._logger.info("New session has been successfully used")
 
             session.commit()
 
-            self._logger.info('New session has been successfully committed')
+            self._logger.info("New session has been successfully committed")
         except Exception:
-            self._logger.exception(f'An unexpected exception occurred during working with session {session}')
+            self._logger.exception(
+                f"An unexpected exception occurred during working with session {session}"
+            )
             session.rollback()
-            self._logger.info('New session has been successfully rolled back')
+            self._logger.info("New session has been successfully rolled back")
             raise
         finally:
             session.close()
 
-            self._logger.info('New session has been successfully closed')
+            self._logger.info("New session has been successfully closed")

@@ -10,9 +10,9 @@ from circulation_import.storage.storage import DatabaseConfiguration
 
 
 class CollectionType(Enum):
-    OPEN_ACCESS = 'OPEN_ACCESS'
-    PROTECTED_ACCESS = 'PROTECTED_ACCESS'
-    LCP = 'LCP'
+    OPEN_ACCESS = "OPEN_ACCESS"
+    PROTECTED_ACCESS = "PROTECTED_ACCESS"
+    LCP = "LCP"
 
     def __str__(self) -> str:
         return str(self.name)
@@ -21,11 +21,11 @@ class CollectionType(Enum):
 @dataclass(kw_only=True)
 @yaml_object(yaml)
 class ImporterConfiguration(Configuration):
-    import_script_command: str = 'bin/directory_import'
+    import_script_command: str = "bin/directory_import"
     collection_name: str
     collection_type: CollectionType
     data_source_name: str
-    rights_uri: str = 'http://librarysimplified.org/terms/rights-status'
+    rights_uri: str = "http://librarysimplified.org/terms/rights-status"
 
 
 @dataclass(kw_only=True)
