@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "circulation-import"
-version = "0.0.1"
+version = "0.1.0"
 description = "Set of tools facilitating the process of importing book collections into SimplyE's Circulation Manager by using SFTP protocol"
 license = "MIT"
 authors = ["Viacheslav Bessonov <viacheslav.bessonov@hilbertteam.com>"]
