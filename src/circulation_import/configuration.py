@@ -4,6 +4,8 @@ import inspect
 import logging
 import logging.config
 import os
+import shutil
+from tempfile import NamedTemporaryFile
 from typing import BinaryIO
 from typing import Dict
 from typing import Union
@@ -61,10 +63,11 @@ class Configuration:
             raise ConfigurationError(f'Configuration file "{filename}" not found')
 
     def save(self, file: Union[str, BinaryIO]) -> None:
-
         if isinstance(file, str):
-            with open(file, "w") as file:  # type: ignore
-                yaml.dump(self, file)
+            with NamedTemporaryFile() as temp_file:
+                yaml.dump(self, temp_file)
+
+                shutil.copyfile(temp_file.name, file)
         else:
             yaml.dump(self, file)
 
