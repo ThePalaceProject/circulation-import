@@ -152,14 +152,15 @@ class Server:
     ) -> None:
         self._logger.info(f"Started saving report for {collection_metadata}")
 
-        book_import_metadata_dictionary = {
-            item.name: item for item in collection_import_metadata.books
-        }
+        if collection_import_metadata.books:
+            book_import_metadata_dictionary = {
+                item.name: item for item in collection_import_metadata.books
+            }
 
-        for book_metadata in collection_metadata.books:
-            book_import_metadata = book_import_metadata_dictionary[book_metadata.name]
-            book_import_metadata.status = book_metadata.status
-            book_import_metadata.error = book_metadata.error
+            for book_metadata in collection_metadata.books:
+                book_import_metadata = book_import_metadata_dictionary[book_metadata.name]
+                book_import_metadata.status = book_metadata.status
+                book_import_metadata.error = book_metadata.error
 
         local_report_file_path = self._get_local_path(
             collection_import_metadata.reports_directory, MetadataFile.REPORT_FILE.value
