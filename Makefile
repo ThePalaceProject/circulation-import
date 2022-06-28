@@ -1,4 +1,4 @@
-HONY: config install lint mypy full-lint test build publish clean all ci
+.PHONY: config install lint mypy full-lint test build publish clean all ci
 .DEFAULT_GOAL := all
 
 all: install lint mypy test build
