@@ -1,4 +1,4 @@
-.PHONY: config install lint mypy full-lint test build publish clean all ci
+HONY: config install lint mypy full-lint test build publish clean all ci
 .DEFAULT_GOAL := all
 
 all: install lint mypy test build
@@ -26,8 +26,8 @@ config:
 
 prepare:
 	if [ "${DEV}" = "1" ]; then virtualenv ${VIRTUAL_ENV}; fi
-	python3.7 -m pip install pip==${PIP_VERSION}
-	python3.7 -m pip install poetry==${POETRY_VERSION}
+	python3 -m pip install pip==${PIP_VERSION}
+	python3 -m pip install poetry==${POETRY_VERSION}
 
 install:
 	make prepare
