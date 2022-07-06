@@ -8,8 +8,8 @@ ARG DEV=0
 
 RUN apt update && \
     add-apt-repository ppa:deadsnakes/ppa -y && \
-    apt install software-properties-common make gcc curl python3.7 python3-pip -y && \
-    python3.7 -m pip install pip
+    apt install software-properties-common make gcc curl python3 python3-pip -y && \
+    python3 -m pip install pip
 
 WORKDIR /circulation-import
 COPY poetry.lock pyproject.toml Makefile README.md /circulation-import/
@@ -24,4 +24,4 @@ RUN make install BIN=/usr/local/bin/ DEV=$DEV
 
 COPY . /circulation-import
 
-ENTRYPOINT ["python3.7", "-m", "circulation_import"]
+ENTRYPOINT ["python3", "-m", "circulation_import"]

@@ -26,8 +26,8 @@ config:
 
 prepare:
 	if [ "${DEV}" = "1" ]; then virtualenv ${VIRTUAL_ENV}; fi
-	python3.7 -m pip install pip==${PIP_VERSION}
-	python3.7 -m pip install poetry==${POETRY_VERSION}
+	python3 -m pip install pip==${PIP_VERSION}
+	python3 -m pip install poetry==${POETRY_VERSION}
 
 install:
 	make prepare
